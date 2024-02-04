@@ -1,2 +1,2 @@
 # TechFest
-NTU TechFest 2024
+NTU TechFest 2024 Team 36
