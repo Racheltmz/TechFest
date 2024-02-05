@@ -18,3 +18,7 @@ To activate the venv, activate it in bash (1st line) or powershell (2nd line)
     source ./env/Scripts/activate
     env\Scripts\activate
 
+Install packages
+
+    pip install -r requirements.txt
+
