@@ -1,24 +1,26 @@
 # TechFest
 NTU TechFest 2024 Team 36
 
-## Instructions for setting up
+# Description
 
-For the frontend, it is a react app so to get it running
+We built a music style transfer application that modifies the style of the audio file based on the genre you selected. In this application, we focused on two categories of generative AI: image generation and music & audio generation. The image generator (Stable Diffusion) was used to generate a new album cover for personalisation purposes while the music generation model (DeepAFx-ST) was used for the style transfer.
+
+# Set up
+
+1. Change directory into the backend folder and run the flask app.
+
+    cd backend
+    flask run
+
+2. Change directory into the frontend folder and run the react app.
 
     cd frontend
     npm start
 
-For the backend, create a virtual environment is created to not mess up with your own environment
+3. Upload an audio file onto the application and it will generate a new album cover and modified audio based on the genre you selected.
 
-    cd backend
-    python -m venv env
+# Resources
 
-To activate the venv, activate it in bash (1st line) or powershell (2nd line)
-
-    source ./env/Scripts/activate
-    env\Scripts\activate
-
-Install packages
-
-    pip install -r requirements.txt
-
+- Genre style transfer: https://github.com/adobe-research/DeepAFx-ST
+- Image generator: https://github.com/CompVis/stable-diffusion
+- Audio genre files: https://www.kaggle.com/datasets/andradaolteanu/gtzan-dataset-music-genre-classification

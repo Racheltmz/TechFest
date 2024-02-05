@@ -19,7 +19,6 @@ export default function Home() {
     useEffect(() => {
         if (fileName === null) {
             window.location.reload();
-            console.log(fileName);
             setGenAudio(null);
             setGenImage(null);
         }
@@ -59,9 +58,10 @@ export default function Home() {
 
             styleTransfer(formData)
                 .then((res) => {
-                    console.log(res.data.styledAudio, res.data.styledImage);
-                    setGenAudio(res.data.styledAudio);
-                    setGenImage(res.data.styledImage);
+                    setTimeout(() => {
+                        setGenAudio(res.data.styledAudio);
+                        setGenImage(res.data.styledImage);
+                    }, 3000);
                 })
                 .catch((err) => {
                     if (err.response === undefined) {
@@ -137,13 +137,13 @@ export default function Home() {
                     </div>
                     <div className='form-content' id='reference'>
                         <h2>2. Select a Genre:</h2>
+                        <Button variant="primary" className={genre === 'electric' ? 'active genre' : 'genre'} type='button' value='electric' onClick={handleGenre}>Electric</Button>
+                        <Button variant="primary" className={genre === 'disco' ? 'active genre' : 'genre'} type='button' value='disco' onClick={handleGenre}>Disco</Button>
                         <Button variant="primary" className={genre === 'jazz' ? 'active genre' : 'genre'} type='button' value='jazz' onClick={handleGenre}>Jazz</Button>
                         <Button variant="primary" className={genre === 'rock' ? 'active genre' : 'genre'} type='button' value='rock' onClick={handleGenre}>Rock</Button>
-                        <Button variant="primary" className={genre === 'disco' ? 'active genre' : 'genre'} type='button' value='disco' onClick={handleGenre}>Disco</Button>
                         <Button variant="primary" className={genre === 'classical' ? 'active genre' : 'genre'} type='button' value='classical' onClick={handleGenre}>Classical</Button>
                         <Button variant="primary" className={genre === 'country' ? 'active genre' : 'genre'} type='button' value='country' onClick={handleGenre}>Country</Button>
                         <Button variant="primary" className={genre === 'hiphop' ? 'active genre' : 'genre'} type='button' value='hiphop' onClick={handleGenre}>Hiphop</Button>
-                        <Button variant="primary" className={genre === 'metal' ? 'active genre' : 'genre'} type='button' value='metal' onClick={handleGenre}>Metal</Button>
                         <Button variant="primary" className={genre === 'pop' ? 'active genre' : 'genre'} type='button' value='pop' onClick={handleGenre}>Pop</Button>
                     </div>
                     <div id='convert'>
@@ -158,7 +158,6 @@ export default function Home() {
                                 <div id='genImg'><img src={require(`../images/${genImage}`)} alt='generated' width="500" height="500"></img></div>
                                 <div id='genAudio'>
                                     <hr></hr>
-                                    <h2>{fileName.replace(".wav", "")} in {genre}</h2>
                                     <audio controls><source src={require(`../videos/${genAudio}`)} type="audio/mpeg"></source></audio>
                                 </div>
                             </div>

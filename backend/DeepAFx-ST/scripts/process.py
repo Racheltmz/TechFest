@@ -6,7 +6,8 @@ import argparse
 import torchaudio
 import numpy as np
 import sys
-sys.path.append("C:/Users/rache/Documents/GitHub/TechFest/backend/DeepAFx-ST")
+
+sys.path.append(os.getcwd())
 
 from deepafx_st.utils import DSPMode
 from deepafx_st.utils import count_parameters
