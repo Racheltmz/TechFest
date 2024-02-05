@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Row } from 'react-bootstrap';
 import { MdCloudUpload, MdDelete } from 'react-icons/md';
 import { AiFillFileImage } from 'react-icons/ai';
@@ -14,6 +14,16 @@ export default function Home() {
     const [genre, setGenre] = useState(null);
     const [genAudio, setGenAudio] = useState(null);
     const [genImage, setGenImage] = useState(null);
+
+
+    useEffect(() => {
+        if (fileName === null) {
+            window.location.reload();
+            console.log(fileName);
+            setGenAudio(null);
+            setGenImage(null);
+        }
+    }, [fileName])
 
     // Function to handle file input change
     const handleFileInputChange = (event) => {
@@ -143,7 +153,7 @@ export default function Home() {
                 <Row className='col-md-6' id='generated'>
                     <div id='content_area'>
                         <h2>Output</h2>
-                        {genImage && genAudio ?
+                        {genImage && genAudio && (fileName !== 'No selected File') ?
                             <div>
                                 <div id='genImg'><img src={require(`../images/${genImage}`)} alt='generated' width="500" height="500"></img></div>
                                 <div id='genAudio'>
