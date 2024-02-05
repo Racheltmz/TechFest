@@ -1,5 +1,5 @@
 section#home {
-    height: 150vh;
+    height: 180vh;
     background-color: #FF753A;
     display: flex;
     flex-direction: column;
@@ -43,18 +43,30 @@ section#home {
 }
 
 #home #form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     z-index: 2;
+}
+
+#form div.form-content {
+    width: 50%;
+    margin: 10px 20px;
+    border-radius: 50px;
+    background: #E9FFBB;
+    box-shadow: inset 20px 20px 60px #c6d99f,
+                inset -20px -20px 60px #ffffd7;
 }
 
 #home div#form button.genre {
     width: 45%;
-    margin: 4px;
-    padding: 10px 8px;
+    margin: 0px 8px 20px 8px;
+    padding: 14px 8px;
     font-size: 16px;
     color: #E9FFBB;
-    background-color: #FF753A;
+    border-radius: 30px;
+    background: #FF753A;
     border: 2px solid #E9FFBB;
-    border-radius: 50px;
 }
 
 #home div#form button.genre:hover,
@@ -69,24 +81,20 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 2px dashed #E9FFBB;
-    height: 300px;
-    width: 500px;
-    margin-top: 30px;
+    border: 2px dashed black;
+    height: 200px;
+    margin: 30px;
     cursor: pointer;
     border-radius: 5px;
 }
 
-form svg {
-    color: #E9FFBB !important;
-}
-
 .uploaded-row {
-    margin: 10px 0;
+    margin: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
+    border: 1px solid black;
     border-radius: 5px;
     background-color: #e9f0ff;
 }
