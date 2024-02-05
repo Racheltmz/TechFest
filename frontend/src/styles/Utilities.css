@@ -1,5 +1,5 @@
 section#home {
-    height: 180vh;
+    height: 240vh;
     background-color: #FF753A;
     display: flex;
     flex-direction: column;
@@ -39,38 +39,50 @@ section#home {
 }
 
 #home h2 {
+    margin-top: 5px;
     font-size: 20px;
 }
 
-#home #form {
-    width: 100%;
+#form {
     display: flex;
     justify-content: center;
+    width: 100%;
+}
+
+#form .row {
+    margin: 25px 5px;
+    width: 50%;
+    height: 150vh;
+    background: #d3d3d396;
+    border-radius: 50px;
+}
+
+#input {
     z-index: 2;
 }
 
-#form div.form-content {
-    width: 50%;
+#input div.form-content {
     margin: 10px 20px;
+    padding: 15px 10px;
     border-radius: 50px;
     background: #E9FFBB;
     box-shadow: inset 20px 20px 60px #c6d99f,
                 inset -20px -20px 60px #ffffd7;
 }
 
-#home div#form button.genre {
-    width: 45%;
-    margin: 0px 8px 20px 8px;
+button.genre {
+    width: 40%;
+    margin: 0px 12px 20px 12px;
     padding: 14px 8px;
     font-size: 16px;
     color: #E9FFBB;
-    border-radius: 30px;
+    border-radius: 20px;
     background: #FF753A;
-    border: 2px solid #E9FFBB;
+    border: 2px solid #ebdc8d;
 }
 
-#home div#form button.genre:hover,
-#home div#form button.genre:focus {
+button.genre:hover,
+button.genre:focus {
     color: #FF753A;
     background-color: #E9FFBB;
     border: 2px solid #FF753A;
@@ -103,3 +115,39 @@ form {
     display: flex;
     align-items: center;
 }
+
+#convert {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Change to gradient */
+#convert button {
+    display: flex;
+    align-items: center;
+    line-height: 1px;
+    padding: 15px 100px;
+    font-size: 16px;
+    border-radius: 50px;
+    color: white;
+    background: linear-gradient(90deg, rgba(255,199,3,1) 0%, rgba(255,66,0,1) 100%);
+    border: 5px solid white;
+}
+
+#convert button:hover,
+#convert button:focus {
+    color: black;
+    background: linear-gradient(90deg, rgba(255,74,40,1) 0%, rgba(41,96,225,1) 100%);
+    border: 5px solid white;
+    transition: 0.3s;
+
+}
+
+#convert #convert_icon {
+    padding-left: 10px;
+}
+
+/* #generated #content_area {
+    
+} */

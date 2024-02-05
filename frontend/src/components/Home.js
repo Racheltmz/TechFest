@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { Button, Row } from 'react-bootstrap';
-import { MdCloudUpload, MdDelete } from 'react-icons/md'
-import { AiFillFileImage } from 'react-icons/ai'
+import { MdCloudUpload, MdDelete } from 'react-icons/md';
+import { AiFillFileImage } from 'react-icons/ai';
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
+import Swal from 'sweetalert2';
+import { styleTransfer } from '../service/MusicService';
 import '../styles/Utilities.css';
 
 export default function Home() {
-    const [audio, setAudio] = useState(null)
-    const [fileName, setFileName] = useState("No selected file")
+    const [audio, setAudio] = useState(null);
+    const [fileName, setFileName] = useState("No selected file");
+    const [genre, setGenre] = useState(null);
+    const [genAudio, setGenAudio] = useState(null);
+    const [genImage, setGenImage] = useState(null);
 
     // Function to handle file input change
     const handleFileInputChange = (event) => {
@@ -18,6 +24,62 @@ export default function Home() {
         }
     };
 
+    const handleGenre = (event) => {
+        const genre = event.target.value;
+        if (genre) {
+            setGenre(genre);
+        }
+    }
+
+    const validateForm = () => {
+        if (!(audio !== null && fileName !== "No selected file" && genre !== null)) {
+            return false;
+        }
+        return true;
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (validateForm()) {
+            let formData = new FormData();
+            formData.append('audio', audio);
+            formData.append('filename', fileName);
+            formData.append('genre', genre);
+
+            styleTransfer(formData)
+                .then((res) => {
+                    console.log(res.data.styledAudio, res.data.styledImage);
+                    setGenAudio(res.data.styledAudio);
+                    setGenImage(res.data.styledImage);
+                })
+                .catch((err) => {
+                    if (err.response === undefined) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: err.message,
+                            confirmButtonText: 'Close',
+                            confirmButtonColor: '#FF6347'
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: `${err.response.status} ${err.response.data.description}`,
+                            text: err.response.data.message,
+                            confirmButtonText: 'Close',
+                            confirmButtonColor: '#FF6347'
+                        });
+                    }
+                })
+        } else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Please fill in all fields',
+                confirmButtonText: 'Close',
+                confirmButtonColor: '#FF6347'
+            })
+        }
+    }
+
     return (
         <section className='container' id='home'>
             <Row id='background'>
@@ -28,53 +90,73 @@ export default function Home() {
                     <h2>Choose a genre and I'll make a new song out of it!</h2>
                 </div>
             </Row>
-
             <Row id='form'>
-                <div className='form-content' id='input'>
-                    <h2>Upload a song (.wav file):</h2>
-                    <form onClick={() => document.querySelector(".input-field").click()}>
-                        <input
-                            type="file"
-                            accept="audio/*"
-                            className='input-field'
-                            hidden
-                            onChange={handleFileInputChange} // Handle file input change
-                        />
-                        {audio ?
-                            <audio controls autoplay><source src={audio} type="audio/mpeg"></source></audio>
-                            :
-                            <>
-                                <MdCloudUpload color='#1475cf' size={60} />
-                                <p>Browse Files to upload</p>
-                            </>
-                        }
-                    </form>
-                    <div className='uploaded-row'>
-                        <AiFillFileImage color='#1475cf' />
-                        <span className='upload-content'>
-                            {fileName} -
-                            <MdDelete
-                                onClick={() => {
-                                    setFileName("No selected File")
-                                    setAudio(null)
-                                }}
+                <Row className='col-md-6' id='input'>
+                    <div className='form-content' id='input'>
+                        <h2>1. Upload a song (.wav file):</h2>
+                        <form onClick={() => document.querySelector(".input-field").click()}>
+                            <input
+                                type="file"
+                                accept="audio/*"
+                                className='input-field'
+                                hidden
+                                onChange={handleFileInputChange} // Handle file input change
                             />
-                        </span>
+                            {audio ?
+                                <audio controls autoPlay><source src={audio} type="audio/mpeg"></source></audio>
+                                :
+                                <>
+                                    <MdCloudUpload color='#1475cf' size={60} />
+                                    <p>Browse Files to upload</p>
+                                </>
+                            }
+                        </form>
+                        <div className='uploaded-row'>
+                            <AiFillFileImage color='#1475cf' />
+                            <span className='upload-content'>
+                                {fileName} -
+                                <MdDelete
+                                    onClick={() => {
+                                        setFileName("No selected File")
+                                        setAudio(null)
+                                    }}
+                                />
+                            </span>
+                        </div>
                     </div>
-                </div>
 
-                <div className='form-content' id='reference'>
-                    <h2>Select a Genre:</h2>
-                    <Button variant="primary" className='genre' type='submit'>Jazz</Button>
-                    <Button variant="primary" className='genre' type='submit'>Rock</Button>
-                    <Button variant="primary" className='genre' type='submit'>Disco</Button>
-                    <Button variant="primary" className='genre' type='submit'>Classical</Button>
-                    <Button variant="primary" className='genre' type='submit'>Country</Button>
-                    <Button variant="primary" className='genre' type='submit'>Hiphop</Button>
-                    <Button variant="primary" className='genre' type='submit'>Metal</Button>
-                    <Button variant="primary" className='genre' type='submit'>Pop</Button>
-                </div>
+                    <div className='form-content' id='reference'>
+                        <h2>2. Select a Genre:</h2>
+                        <Button variant="primary" className='genre' type='button' value='jazz' onClick={handleGenre}>Jazz</Button>
+                        <Button variant="primary" className='genre' type='button' value='rock' onClick={handleGenre}>Rock</Button>
+                        <Button variant="primary" className='genre' type='button' value='disco' onClick={handleGenre}>Disco</Button>
+                        <Button variant="primary" className='genre' type='button' value='classical' onClick={handleGenre}>Classical</Button>
+                        <Button variant="primary" className='genre' type='button' value='country' onClick={handleGenre}>Country</Button>
+                        <Button variant="primary" className='genre' type='button' value='hiphop' onClick={handleGenre}>Hiphop</Button>
+                        <Button variant="primary" className='genre' type='button' value='metal' onClick={handleGenre}>Metal</Button>
+                        <Button variant="primary" className='genre' type='button' value='pop' onClick={handleGenre}>Pop</Button>
+                    </div>
+                    <div id='convert'>
+                        <Button variant="primary" type='submit' onClick={handleSubmit}>Convert Audio<span id='convert_icon'><FaRegArrowAltCircleRight /></span></Button>
+                    </div>
+                </Row>
+                <Row className='col-md-6' id='generated'>
+                    <div id='content_area'>
+                        <h2>Output</h2>
+                        {genAudio ?
+                            <audio controls autoPlay><source src={require(`../videos/${genAudio}`)} type="audio/mpeg"></source></audio>
+                            :
+                            <div></div>
+                        }
+                        {genImage ?
+                            <img src={require(`../images/${genImage}`)} alt='generated' width="100" height="100"></img>
+                            :
+                            <div></div>
+                        }
+                    </div>
+                </Row>
             </Row>
+
         </section>
     );
 };
