@@ -61,13 +61,18 @@ section#home {
     z-index: 2;
 }
 
-#input div.form-content {
+#input div.form-content,
+#generated #content_area {
     margin: 10px 20px;
     padding: 15px 10px;
     border-radius: 50px;
     background: #E9FFBB;
     box-shadow: inset 20px 20px 60px #c6d99f,
-                inset -20px -20px 60px #ffffd7;
+        inset -20px -20px 60px #ffffd7;
+}
+
+#generated #content_area {
+    height: 90%;
 }
 
 button.genre {
@@ -82,7 +87,8 @@ button.genre {
 }
 
 button.genre:hover,
-button.genre:focus {
+button.genre:focus,
+button.genre:active {
     color: #FF753A;
     background-color: #E9FFBB;
     border: 2px solid #FF753A;
@@ -131,14 +137,14 @@ form {
     font-size: 16px;
     border-radius: 50px;
     color: white;
-    background: linear-gradient(90deg, rgba(255,199,3,1) 0%, rgba(255,66,0,1) 100%);
+    background: linear-gradient(90deg, rgba(255, 199, 3, 1) 0%, rgba(255, 66, 0, 1) 100%);
     border: 5px solid white;
 }
 
 #convert button:hover,
 #convert button:focus {
     color: black;
-    background: linear-gradient(90deg, rgba(255,74,40,1) 0%, rgba(41,96,225,1) 100%);
+    background: linear-gradient(90deg, rgba(255, 74, 40, 1) 0%, rgba(41, 96, 225, 1) 100%);
     border: 5px solid white;
     transition: 0.3s;
 
@@ -148,6 +154,15 @@ form {
     padding-left: 10px;
 }
 
-/* #generated #content_area {
-    
-} */
+#generated #content_area #genAudio {
+    margin-top: 60px;
+}
+
+#generated #content_area #genAudio audio {
+    width: 90%;
+}
+
+#orig_icon {
+    width: 500px;
+    height: 500px;
+}
